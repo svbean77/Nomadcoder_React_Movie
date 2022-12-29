@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+    <!-- React를 import -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const root = document.getElementById("root");
+
+      //JSX를 사용한 방식
+      //컴포넌트의 첫 글자가 대문자여야 함! 소문자면 태그로 인식함(HTML)
+      const Title = () => (
+        <h3 id="title" onMousEnter={() => console.log("I'm clicked!")}>
+          Hello I'm a title
+        </h3>
+      );
+      const Button = () => (
+        <button
+          style={{ backgroundColor: "tomato" }}
+          onClick={() => console.log("I'm clicked!")}
+        >
+          Click me
+        </button>
+      );
+      /*
+      //JSX를 사용하지 않는 예전 방식
+      //span과 button을 포함한 div 생성 후 root에(위치) render, 이 방법은 사용하지 않으니 이번 강의에만 봐두자
+      //tag, property, content
+      const h3 = React.createElement(
+        "h3",
+        {
+          onMouseEnter: () => console.log("mouse enter!"),
+        },
+        "Hello I'm a h3"
+      );
+      const btn = React.createElement(
+        "button",
+        {
+          onClick: () => console.log("I'm clicked!"),
+          style: { backgroundColor: "tomato" },
+        },
+        "Click me"
+      );
+
+      const container = React.createElement("div", null, [h3, btn]);
+      ReactDOM.render(container, root);
+      */
+      const Container = () => (
+        <div>
+          <Title />
+          <Button />
+        </div>
+      );
+      ReactDOM.render(<Container />, root);
+    </script>
+  </body>
+</html>
