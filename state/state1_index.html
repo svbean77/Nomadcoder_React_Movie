@@ -13,7 +13,8 @@
         //배열의 각 요소에 이름을 부여 ([0] = counter, [1] = setCounter)
         const [counter, setCounter] = React.useState(0);
         const onClick = () => {
-          setCounter(counter + 1);
+          //setCounter(counter + 1);
+          setCounter((current) => current + 1); //위의 코드와 같은 결과이지만 current가 현재 값이라는 것을 명시함
         };
 
         return (
