@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      //Btn(props) -> props.banana: object 타입
+      //Btn({banana}) -> banana
+      function Btn({ text, onClick, fontSize = 10 }) {
+        console.log(text);
+        return (
+          <button
+            onClick={onClick}
+            style={{
+              backgroundColor: "tomato",
+              color: "white",
+              padding: "10px 20px",
+              border: 0,
+              borderRadius: 10,
+              fontSize,
+            }}
+          >
+            {text}
+          </button>
+        );
+      }
+      //정한 타입에 맞지 않으면 console창에 오류
+      //isRequired는 무조건 존재해야 함
+      Btn.propTypes = {
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number,
+      };
+      //Continue 버튼은 re-render하지 않기 위해 사용 (변경되지 않기 때문)
+      //어플리케이션이 느려지는 원인이 될 수 있음
+      const MemorizedBtn = React.memo(Btn);
+      function App() {
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue("Revert Changes");
+        return (
+          //Btn({text: "Save Changes"})와 같은 방식
+          //매개변수이기 때문에 적용되지 않음! 직접 적용시켜야 함
+          <div>
+            <Btn text={value} onClick={changeValue} fontSize={20} />
+            <MemorizedBtn text="Continue" />
+            <Btn text={7} fontSize={15} />
+          </div>
+        );
+      }
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>
